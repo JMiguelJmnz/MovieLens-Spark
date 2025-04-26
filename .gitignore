@@ -1,0 +1,8 @@
+# .gitignore
+__pycache__/
+*.pyc
+*.log
+*.DS_Store
+*.ipynb_checkpoints
+.env
+data/ml-latest-small/
