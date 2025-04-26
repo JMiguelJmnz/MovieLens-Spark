@@ -26,7 +26,21 @@ movies_df.printSchema()
 print("Ratings schema:")
 ratings_df.printSchema()
 
-# Shor a few rows
+# 10 most-rated movies
+ratings_count = ratings_df.groupBy("movieId").count()
+joined_df = ratings_count.join(movies_df, on="movieID")
+sorted_df = joined_df.orderBy("count", ascending=False)
+print("10 most-rated movies")
+sorted_df.select("title", "count").show(10)
+
+# Top rating movies
+top_ratings = ratings_df.groupBy("movieID")["rating"].max()
+top_movies = top_ratings.join(movies_df, on="movieID")
+sorted_ratings = top_movies.orderBy("rating", ascending=False)
+print("10 TOP rated movies")
+sorted_ratings.select("title", "rating").show(10)
+
+# Show a few rows
 print("Sample movies:")
 movies_df.show(5, truncate = False)
 
